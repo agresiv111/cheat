@@ -1,26 +1,45 @@
--- main.lua
--- Если файлы лежат в одном репозитории и доступны через require:
-local Config = require(script.Config)
-local ESP = require(script.ESP)
-local Aimbot = require(script.Aimbot)
-local GUI = require(script.GUI)
-local AutoPeek = require(script.AutoPeek)
-local Prediction = require(script.Prediction)
-local GlowESP = require(script.GlowESP)
-local Chams = require(script.Chams)
-local KillSay = require(script.KillSay)
-local AntiAFK = require(script.AntiAFK)
+-- Загружаем модули
+local Config = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/Config.lua"))()
+local GUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/GUI.lua"))()
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/ESP.lua"))()
+local Aimbot = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/Aimbot.lua"))()
+local AutoPeek = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/AutoPeek.lua"))()
+local Prediction = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/Prediction.lua"))()
+local GlowESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/GlowESP.lua"))()
+local Chams = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/Chams.lua"))()
+local KillSay = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/KillSay.lua"))()
+local AntiAFK = loadstring(game:HttpGet("https://raw.githubusercontent.com/agresiv111/cheat/refs/heads/main/AntiAFK.lua"))()
 
--- Инициализация модулей
-ESP:Init()
-Aimbot:Init()
-GUI:Init()
+-- Запуск основного GUI (если нужно)
+if GUI and GUI.Init then
+    GUI.Init()
+end
 
-print("✅ Скрипт успешно запущен!")
+-- Включаем читы (если в модулях есть стартовые функции)
+if Aimbot and Aimbot.Init then
+    Aimbot.Init()
+end
 
--- Пример привязки функции AutoPeek к клавише E:
-game:GetService("UserInputService").InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.E then
-        AutoPeek:DoAutoPeek()
-    end
-end)
+if ESP and ESP.Init then
+    ESP.Init()
+end
+
+if AutoPeek and AutoPeek.Enable then
+    AutoPeek.Enable()
+end
+
+if GlowESP and GlowESP.Enable then
+    GlowESP.Enable()
+end
+
+if Chams and Chams.Enable then
+    Chams.Enable()
+end
+
+if KillSay and KillSay.Start then
+    KillSay.Start()
+end
+
+if AntiAFK and AntiAFK.Enable then
+    AntiAFK.Enable()
+end
